@@ -1,0 +1,71 @@
+.navbar {
+    background-color: $color-nav-dark;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+
+    &.bright {
+        background-color: $color-nav-bright;
+    }
+    &_theme {
+        @include btn-fix;
+        margin: 0 auto;
+        padding: .5rem 2rem;
+        text-transform: capitalize;
+        position: relative;
+
+        &::before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 100px;
+            border: 1px solid;
+            transition: all .3s;
+            
+        }
+        &::after {
+            content: "Theme";
+            border-radius: 100px;
+            padding: .5rem 2rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: $color-text-white;
+            color: $color-nav-dark;
+            transform: scaleX(0);
+            opacity: 0;
+            transition: all .3s;
+        }
+        &:hover::before {
+            transform: scaleY(0);
+        }
+        &:hover::after {
+            transform: scaleX(1);
+            opacity: 1;
+        }
+    }
+    &_nav {
+        list-style: none;
+        
+        &_item {
+            display: inline;
+            margin-left: 1rem;
+            text-transform: uppercase;
+            
+            &_link, &_link:active, &_link:visited {
+                color: inherit;
+                text-decoration: none;
+
+                &.active {
+                    text-shadow: .5px .5px .5px currentColor;
+                }
+            }
+        }
+    }
+}

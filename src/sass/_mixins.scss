@@ -1,0 +1,13 @@
+@mixin btn-fix {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}

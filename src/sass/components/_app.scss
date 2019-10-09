@@ -1,0 +1,24 @@
+.app {
+    min-height: 100vh;
+    width: 100%;
+    padding-bottom: 0;
+    background-image: url('/images/clouds3.png'), linear-gradient(to bottom, $color-primary-dark, $color-secondary-dark);
+    background-repeat: no-repeat;
+    background-size: 300%;
+    animation: moveBg 60s linear infinite;
+
+    &.bright {
+        background-image:  url('/images/clouds3.png'), linear-gradient(to bottom, $color-tertiary-bright, $color-primary-bright);
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .app {
+        padding-bottom: 2rem;
+    }
+}
+@keyframes moveBg {
+    0% {background-position: 0% 0%;}
+    50% {background-position: 50% 0%;}
+    100% {background-position: 100% 0%;}
+}
