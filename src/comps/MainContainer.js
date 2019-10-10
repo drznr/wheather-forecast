@@ -74,7 +74,7 @@ class MainContainer extends React.Component {
         }
     }
 
-    render() {console.log('main rendered');
+    render() {
         return (
             <section>
                 <MainHeader
