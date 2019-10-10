@@ -1,19 +1,20 @@
 import React from 'react';
-import {  Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import {  withRouter, Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar(props) {
   let homeLink = React.createRef(),
    favsLink = React.createRef();
+   useEffect(() => {
+    if (props.location.pathname === "/favorites") {
+      homeLink.current.classList.remove('active');
+      favsLink.current.classList.add('active');
+    } else {
+      homeLink.current.classList.add('active');
+      favsLink.current.classList.remove('active');
+    }
+  });
   
- function styleActiveLink(e) {
-   if (e.target.textContent === "home") {
-    homeLink.current.classList.add('active');
-    favsLink.current.classList.remove('active');
-   } else {
-    homeLink.current.classList.remove('active');
-    favsLink.current.classList.add('active');
-   }
-  }
   function togggleTheme() {
     document.querySelector('body').classList.toggle('bright');
     document.querySelector('.app').classList.toggle('bright');
@@ -30,11 +31,11 @@ function Navbar() {
       <h2>herolo wheather task</h2>
       <button className="navbar_theme" onClick={togggleTheme}>theme</button>
       <ul className="navbar_nav">
-        <li className="navbar_nav_item"><Link onClick={styleActiveLink} ref={homeLink} className="navbar_nav_item_link active" to="/home">home</Link></li>
-        <li className="navbar_nav_item"><Link onClick={styleActiveLink} ref={favsLink} className="navbar_nav_item_link" to="/favorites">favorites</Link></li>
+        <li className="navbar_nav_item"><Link ref={homeLink} className="navbar_nav_item_link active" to="/home">home</Link></li>
+        <li className="navbar_nav_item"><Link ref={favsLink} className="navbar_nav_item_link" to="/favorites">favorites</Link></li>
       </ul>
     </nav>
   );
 }
 
-export default Navbar;
+export default withRouter(Navbar);
