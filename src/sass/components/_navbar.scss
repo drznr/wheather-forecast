@@ -6,6 +6,8 @@
     justify-content: center;
     align-items: center;
     text-transform: capitalize;
+    z-index: 2;
+    position: relative;
 
     &.bright {
         background-color: $color-nav-bright;

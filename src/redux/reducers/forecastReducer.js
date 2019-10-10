@@ -6,6 +6,13 @@ const initialState = {
 const forecastReducer = (state = initialState, action) => {
     switch (action.type) {
         case "CHANGE FORECAST":
+            if (state.isCelsius) {
+                let daysArr = action.payload.details.DailyForecasts;
+                for (let i = 0; i < daysArr.length; i++) {
+                    daysArr[i].Temperature.Minimum.Value = Math.round((daysArr[i].Temperature.Minimum.Value - 32) * (5 / 9));
+                    daysArr[i].Temperature.Maximum.Value = Math.round((daysArr[i].Temperature.Maximum.Value - 32) * (5 / 9));
+                }
+            }
             state = {
                 cityInfo: { ...action.payload.details },
                 isCelsius: state.isCelsius

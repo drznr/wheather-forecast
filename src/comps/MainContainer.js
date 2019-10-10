@@ -4,31 +4,31 @@ import { autoComplete, clearAutoComplete, changeCityDetails, switchDegreeUnits, 
 import { connect } from "react-redux";
 import MainForecast from './MainForecast';
 
-class MainContainer extends React.Component { 
+class MainContainer extends React.Component {
     coords = "";
     isCelsius = false;
-    constructor(props) {
-        super(props);
+    
+    async componentDidMount() {
         // set coords according to position
         if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(async (position) => {
+            navigator.geolocation.getCurrentPosition(position => {
                 this.coords = `${position.coords.latitude},${position.coords.longitude}`;
             });
         }
-    }
-    async componentDidMount() {
         // only on first mount - get city data from coords
-        if (Object.keys(this.props.cityDetails).length === 0) {
-            try {
-                if (this.coords) {
-                    const resp = await fetch('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1&q=' + this.coords);
-                    const data = await resp.json();
-                    this.setForecast(data.ParentCity.Key, data.ParentCity.LocalizedName);
-                } else this.setForecast("215854", "Tel Aviv");
-            } catch {
-                this.setForecast("215854", "Tel Aviv");
+        setTimeout(async () => {
+            if (Object.keys(this.props.cityDetails).length === 0) {
+                try {
+                    if (this.coords) {
+                        const resp = await fetch('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1&q=' + this.coords);
+                        const data = await resp.json();
+                        this.setForecast(data.ParentCity.Key, data.ParentCity.LocalizedName);
+                    } else this.setForecast("215854", "Tel Aviv");
+                } catch {
+                    this.setForecast("215854", "Tel Aviv");
+                }
             }
-        }
+        }, 0);
     }
 
     async setForecast(cityKey, cityName) {
@@ -70,7 +70,7 @@ class MainContainer extends React.Component {
         }
     }
 
-    render() {     
+    render() {
         return (
             <section>
                 <MainHeader

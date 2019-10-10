@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <div className="app_clouds"></div>
         <Navbar />
         <Modal />
         <Switch>

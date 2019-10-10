@@ -4,6 +4,8 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: none;
     padding: 4rem;
+    z-index: 2;
+    position: relative;
 
     &_city {
         background-color: rgba($color-tertiary-dark, .2);

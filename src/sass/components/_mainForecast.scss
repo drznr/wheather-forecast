@@ -4,6 +4,8 @@
     margin: 0 auto;
     background-color: rgba($color-nav-dark, .3);
     padding: 1rem;
+    z-index: 2;
+    position: relative;
 
     &.bright {
         background-color: rgba($color-nav-bright, .5); 

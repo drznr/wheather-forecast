@@ -1,6 +1,8 @@
  .mainHeader {
         text-align: center;
         padding: 2rem 0;
+        z-index: 3;
+        position: relative;
 
         &_search {
             position: relative;
