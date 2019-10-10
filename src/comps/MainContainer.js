@@ -7,7 +7,7 @@ import MainForecast from './MainForecast';
 class MainContainer extends React.Component {
     coords = "";
     isCelsius = false;
-    
+
     async componentDidMount() {
         // set coords according to position
         if ("geolocation" in navigator) {
@@ -29,6 +29,10 @@ class MainContainer extends React.Component {
                 }
             }
         }, 0);
+    }
+
+    shouldComponentUpdate(nextProps) {
+        return this.props.favoriteCities === nextProps.favoriteCities;
     }
 
     async setForecast(cityKey, cityName) {
@@ -70,7 +74,7 @@ class MainContainer extends React.Component {
         }
     }
 
-    render() {
+    render() {console.log('main rendered');
         return (
             <section>
                 <MainHeader
