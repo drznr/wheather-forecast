@@ -14,10 +14,15 @@
         padding-bottom: 6rem;
         font-size: 3rem;
         text-transform: capitalize;
+        transition: all .3s ease;
         cursor: pointer;
 
         &.bright {
             background-color: rgba($color-secondary-bright, .2);
+        }
+        &:hover {
+            filter: drop-shadow(2px 4px 6px black) hue-rotate(45deg);
+            transform: scale(1.1);
         }
         &>* {
             pointer-events: none;

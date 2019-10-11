@@ -64,6 +64,7 @@ class MainContainer extends React.Component {
 
     async toggleFavorites() {
         try {
+            if (this.props.isCelsius) this.props.switchDegreeUnits();
             const resp = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${this.props.cityDetails.cityKey}?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1`);
             const data = await resp.json();
             this.props.toggleFavoritesIcon();
