@@ -26,7 +26,7 @@ class MainContainer extends React.Component {
             // get city data from coords
             setTimeout(() => {
                     this.props.getInfoByCoords(this.coords);
-            }, 0);
+            }, 10);
         }
     }
 
