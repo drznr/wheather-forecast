@@ -9,31 +9,36 @@ function MainForecast(props) {
         day: new Date(props.cityDetails.DailyForecasts[0].Date).toString().split(' ')[0],
         min: props.cityDetails.DailyForecasts[0].Temperature.Minimum.Value,
         max: props.cityDetails.DailyForecasts[0].Temperature.Maximum.Value,
-        desc: props.cityDetails.DailyForecasts[0].Day.IconPhrase
+        desc: props.cityDetails.DailyForecasts[0].Day.IconPhrase,
+        icon: props.cityDetails.DailyForecasts[0].Day.Icon
       },
       {
         day: new Date(props.cityDetails.DailyForecasts[1].Date).toString().split(' ')[0],
         min: props.cityDetails.DailyForecasts[1].Temperature.Minimum.Value,
         max: props.cityDetails.DailyForecasts[1].Temperature.Maximum.Value,
-        desc: props.cityDetails.DailyForecasts[1].Day.IconPhrase
+        desc: props.cityDetails.DailyForecasts[1].Day.IconPhrase,
+        icon: props.cityDetails.DailyForecasts[1].Day.Icon
       },
       {
         day: new Date(props.cityDetails.DailyForecasts[2].Date).toString().split(' ')[0],
         min: props.cityDetails.DailyForecasts[2].Temperature.Minimum.Value,
         max: props.cityDetails.DailyForecasts[2].Temperature.Maximum.Value,
-        desc: props.cityDetails.DailyForecasts[2].Day.IconPhrase
+        desc: props.cityDetails.DailyForecasts[2].Day.IconPhrase,
+        icon: props.cityDetails.DailyForecasts[2].Day.Icon
       },
       {
         day: new Date(props.cityDetails.DailyForecasts[3].Date).toString().split(' ')[0],
         min: props.cityDetails.DailyForecasts[3].Temperature.Minimum.Value,
         max: props.cityDetails.DailyForecasts[3].Temperature.Maximum.Value,
-        desc: props.cityDetails.DailyForecasts[3].Day.IconPhrase
+        desc: props.cityDetails.DailyForecasts[3].Day.IconPhrase,
+        icon: props.cityDetails.DailyForecasts[3].Day.Icon
       },
       {
         day: new Date(props.cityDetails.DailyForecasts[4].Date).toString().split(' ')[0],
         min: props.cityDetails.DailyForecasts[4].Temperature.Minimum.Value,
         max: props.cityDetails.DailyForecasts[4].Temperature.Maximum.Value,
-        desc: props.cityDetails.DailyForecasts[4].Day.IconPhrase
+        desc: props.cityDetails.DailyForecasts[4].Day.IconPhrase,
+        icon: props.cityDetails.DailyForecasts[4].Day.Icon
       }
     ]
   }
@@ -74,26 +79,31 @@ function MainForecast(props) {
             <p>{wheatherData[0].day}</p>
             <p className="forecast_content_day_desc">{wheatherData[0].desc}</p>
             <p className="forecast_content_day_temp">{wheatherData[0].min}&deg; / {wheatherData[0].max}&deg;</p>
+            <img src={`https://vortex.accuweather.com/adc2010/images/slate/icons/${wheatherData[0].icon}.svg`} alt="weather icon" className="forecast_content_day_icon"/>
           </div>
           <div className="forecast_content_day">
             <p>{wheatherData[1].day}</p>
             <p className="forecast_content_day_desc">{wheatherData[1].desc}</p>
             <p className="forecast_content_day_temp">{wheatherData[1].min}&deg; / {wheatherData[1].max}&deg;</p>
+            <img src={`https://vortex.accuweather.com/adc2010/images/slate/icons/${wheatherData[1].icon}.svg`} alt="weather icon" className="forecast_content_day_icon"/>
           </div>
           <div className="forecast_content_day">
             <p>{wheatherData[2].day}</p>
             <p className="forecast_content_day_desc">{wheatherData[2].desc}</p>
             <p className="forecast_content_day_temp">{wheatherData[2].min}&deg; / {wheatherData[2].max}&deg;</p>
+            <img src={`https://vortex.accuweather.com/adc2010/images/slate/icons/${wheatherData[2].icon}.svg`} alt="weather icon" className="forecast_content_day_icon"/>
           </div>
           <div className="forecast_content_day">
             <p>{wheatherData[3].day}</p>
             <p className="forecast_content_day_desc">{wheatherData[3].desc}</p>
             <p className="forecast_content_day_temp">{wheatherData[3].min}&deg; / {wheatherData[3].max}&deg;</p>
+            <img src={`https://vortex.accuweather.com/adc2010/images/slate/icons/${wheatherData[3].icon}.svg`} alt="weather icon" className="forecast_content_day_icon"/>
           </div>
           <div className="forecast_content_day">
             <p>{wheatherData[4].day}</p>
             <p className="forecast_content_day_desc">{wheatherData[4].desc}</p>
             <p className="forecast_content_day_temp">{wheatherData[4].min}&deg; / {wheatherData[4].max}&deg;</p>
+            <img src={`https://vortex.accuweather.com/adc2010/images/slate/icons/${wheatherData[4].icon}.svg`} alt="weather icon" className="forecast_content_day_icon"/>
           </div>
         </div>
       </div>

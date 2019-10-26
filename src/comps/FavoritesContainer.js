@@ -1,21 +1,13 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { changeCityDetails } from '../redux/actions';
+import { getForecastDetails } from '../redux/actions';
 import Favorites from './Favorites';
 
 function FavoritesContainer(props) {  
 
- async function setLocationForecast(name, key) {  
-    try {
-      const resp = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1`);
-      let data = await resp.json();
-      data = { ...data, cityName: name, cityKey: key, isFavorite: props.favoriteCities.some(city => city.key === key) };
-      props.changeCityDetails(data);
-      props.history.push("/home");
-    } catch {
-      document.querySelector('.cover').classList.add('active');
-      document.querySelector('.cover_modal').classList.add('active');
-    }
+ function setLocationForecast(name, key) {  
+    props.getForecastDetails(key, name, true);
+    props.history.push("/home");
   } 
   
   return (
@@ -38,7 +30,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      changeCityDetails: details => dispatch(changeCityDetails(details))
+    getForecastDetails: (key, name, isFavorite) => dispatch(getForecastDetails(key, name, isFavorite))
   }
 };
 

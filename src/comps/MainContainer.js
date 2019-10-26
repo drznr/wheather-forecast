@@ -1,78 +1,53 @@
 import React from 'react';
 import MainHeader from './MainHeader';
-import { autoComplete, clearAutoComplete, changeCityDetails, switchDegreeUnits, toggleCityFromFavorites, toggleFavoritesIcon } from '../redux/actions';
+import {
+    clearAutoComplete,
+    switchDegreeUnits,
+    getForecastDetails,
+    getInfoByCoords,
+    getAutoCompData,
+    getFavoriteInfo
+} from '../redux/actions';
 import { connect } from "react-redux";
 import MainForecast from './MainForecast';
 
 class MainContainer extends React.Component {
     coords = "";
-    isCelsius = false;
 
-    async componentDidMount() {
-        // set coords according to position
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(position => {
-                this.coords = `${position.coords.latitude},${position.coords.longitude}`;
-            });
-        }
-        // only on first mount - get city data from coords
-        setTimeout(async () => {
-            if (Object.keys(this.props.cityDetails).length === 0) {
-                try {
-                    if (this.coords) {
-                        const resp = await fetch('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1&q=' + this.coords);
-                        const data = await resp.json();
-                        this.setForecast(data.ParentCity.Key, data.ParentCity.LocalizedName);
-                    } else this.setForecast("215854", "Tel Aviv");
-                } catch {
-                    this.setForecast("215854", "Tel Aviv");
-                }
+    componentDidMount() {
+        // only on first mount
+        if (Object.keys(this.props.cityDetails).length === 0) { 
+            // set coords according to position
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    this.coords = `${position.coords.latitude},${position.coords.longitude}`;
+                });
             }
-        }, 0);
+            // get city data from coords
+            setTimeout(() => {
+                    this.props.getInfoByCoords(this.coords);
+            }, 0);
+        }
     }
 
     shouldComponentUpdate(nextProps) {
         return this.props.favoriteCities === nextProps.favoriteCities;
     }
 
-    async setForecast(cityKey, cityName) {
-        try {
-            const resp = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1`);
-            let data = await resp.json();
-            data = { ...data, cityName: cityName, cityKey: cityKey, isFavorite: this.props.favoriteCities.some(city => city.key === cityKey) };
-            this.props.changeCityDetails(data);
-        } catch {
-            document.querySelector('.cover').classList.add('active');
-            document.querySelector('.cover_modal').classList.add('active');
-        }
-
+    setForecast = (cityKey, cityName) => {
+        this.props.getForecastDetails(cityKey, cityName, this.props.favoriteCities.some(city => city.key === cityKey));
     }
-    autoComplete = async (q) => {
-        try {
-            const resp = await fetch('http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1&q=' + q);
-            const data = await resp.json();
-            this.props.autoComplete(data);
-        } catch {
-            document.querySelector('.cover').classList.add('active');
-            document.querySelector('.cover_modal').classList.add('active');
-        }
+    autoComplete = (q) => {
+        this.props.getAutoCompData(q);
     }
 
-    switchUnits() {
+    switchUnits = () => {
         this.props.switchDegreeUnits();
     }
 
-    async toggleFavorites() {
-        try {
-            if (this.props.isCelsius) this.props.switchDegreeUnits();
-            const resp = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${this.props.cityDetails.cityKey}?apikey=bfE7uS3vhGLDHs6EAJTqqsIyAQQkVZG1`);
-            const data = await resp.json();
-            this.props.toggleFavoritesIcon();
-            this.props.toggleCityFromFavorites(this.props.cityDetails.cityKey, this.props.cityDetails.cityName, data[0]);
-        } catch {
-            document.querySelector('.cover').classList.add('active');
-            document.querySelector('.cover_modal').classList.add('active');
-        }
+    toggleFavorites = () => {
+        if (this.props.isCelsius) this.props.switchDegreeUnits();
+        this.props.getFavoriteInfo(this.props.cityDetails.cityKey, this.props.cityDetails.cityName);
     }
 
     render() {
@@ -82,13 +57,13 @@ class MainContainer extends React.Component {
                     autoComplete={this.autoComplete}
                     autoCompleteData={this.props.autoCompleteData}
                     clearAutoComplete={this.props.clearAutoComplete}
-                    changeCityDetails={this.setForecast.bind(this)}
+                    changeCityDetails={this.setForecast}
                 />
                 <MainForecast
                     cityDetails={this.props.cityDetails}
-                    switchUnits={this.switchUnits.bind(this)}
+                    switchUnits={this.switchUnits}
                     isCelsius={this.props.isCelsius}
-                    toggleFavorites={this.toggleFavorites.bind(this)}
+                    toggleFavorites={this.toggleFavorites}
                 />
             </section>
         );
@@ -105,12 +80,12 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        autoComplete: data => dispatch(autoComplete(data)),
         clearAutoComplete: () => dispatch(clearAutoComplete()),
-        changeCityDetails: details => dispatch(changeCityDetails(details)),
         switchDegreeUnits: unit => dispatch(switchDegreeUnits(unit)),
-        toggleCityFromFavorites: (city, name, wheather) => dispatch(toggleCityFromFavorites(city, name, wheather)),
-        toggleFavoritesIcon: () => dispatch(toggleFavoritesIcon())
+        getForecastDetails: (key, name, isFavorite) => dispatch(getForecastDetails(key, name, isFavorite)),
+        getInfoByCoords: (coords) => dispatch(getInfoByCoords(coords)),
+        getAutoCompData: (q) => dispatch(getAutoCompData(q)),
+        getFavoriteInfo: (key, name) => dispatch(getFavoriteInfo(key, name))
     }
 };
 const MainComp = connect(mapStateToProps, mapDispatchToProps)(MainContainer);

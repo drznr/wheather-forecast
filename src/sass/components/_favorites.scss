@@ -30,16 +30,17 @@
         &_name {
             font-size: inherit;
         }
-        &_temp {
-            margin-bottom: 6rem;
-        }
         &_desc {
             margin-bottom: 2rem;
+        }
+        &_icon {
+            width: 6rem;
+            margin: 3rem 0;
         }
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
     .favorites {
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
         grid-template-columns: none;

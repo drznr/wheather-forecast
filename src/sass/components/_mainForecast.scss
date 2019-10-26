@@ -63,6 +63,10 @@
                 stroke: #ff6ec7;
                 width: 6rem;
                 transition: all .4s ease-in-out;
+
+                &:hover {
+                    animation: beat .8s ease;
+                }
             }
             &_msg {
                 position: absolute;
@@ -96,10 +100,11 @@
             background-color: rgba($color-tertiary-dark, .2);
             text-align: center;
             padding: 4rem 2rem;
-            padding-bottom: 6rem;
+            padding-bottom: 14rem;
             font-size: 3rem;
             font-weight: 700;
             text-transform: capitalize;
+            position: relative;
 
             &.bright {
                 background-color: rgba($color-secondary-bright, .2); 
@@ -113,11 +118,26 @@
                 font-size: 2.5rem;
                 margin-top: 1rem;
             }
+            &_icon {
+                width: 8rem;
+                position: absolute;
+                bottom: 3rem;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     }
 }
 
-@media only screen and (max-width: 900px) {
+@keyframes beat {
+    0% {transform: scale(1);}
+    25% {transform: scale(1.2);}
+    50% {transform: scale(1);}
+    75% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+@media only screen and (max-width: 1000px) {
     .forecast {
         padding-bottom: 4rem;
 
@@ -127,6 +147,7 @@
 
             &_day {
                 padding: 8rem 4em;
+                padding-bottom: 14rem;
 
                 &_desc {
                     margin-top: 4rem;
