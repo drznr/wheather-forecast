@@ -28,7 +28,7 @@ function Navbar(props) {
   }
   return (
     <nav className="navbar">
-      <h2>herolo wheather task</h2>
+      <h2>wheather task</h2>
       <button className="navbar_theme" onClick={togggleTheme}>theme</button>
       <ul className="navbar_nav">
         <li className="navbar_nav_item"><Link ref={homeLink} className="navbar_nav_item_link active" to="/home">home</Link></li>
